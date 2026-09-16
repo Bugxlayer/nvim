@@ -54,6 +54,25 @@ local function copy_current_file_path()
   vim.notify("Copied: " .. path, vim.log.levels.INFO, { title = "File path" })
 end
 
+-- Grow/shrink the terminal window. Floats are sized through snacks options
+-- (a height <= 1 is a fraction of the editor), splits through :resize.
+local function term_resize(delta)
+  ---@param self snacks.terminal
+  return function(self)
+    if self:is_floating() then
+      local height = self.opts.height or 0.9
+      if height > 0 and height <= 1 then
+        self.opts.height = math.min(0.95, math.max(0.15, height + delta * 0.05))
+      else
+        self.opts.height = math.max(3, height + delta * 2)
+      end
+      self:update()
+    else
+      vim.cmd(("resize %+d"):format(delta * 2))
+    end
+  end
+end
+
 local lualine_full_path = {
   current_file_path,
   on_click = function(_, btn)
@@ -66,6 +85,9 @@ local lualine_full_path = {
 return {
   -- No buffer tabs at the top (use <S-h>/<S-l> or [b / ]b to switch buffers)
   { "akinsho/bufferline.nvim", enabled = false },
+
+  -- No key hint popup after <leader> / <C-w>
+  { "folke/which-key.nvim", enabled = false },
 
   {
     "nvim-lualine/lualine.nvim",
@@ -87,11 +109,24 @@ return {
 
   {
     "folke/noice.nvim",
-    opts = {
-      cmdline = {
+    opts = function(_, opts)
+      opts.cmdline = vim.tbl_deep_extend("force", opts.cmdline or {}, {
         view = "cmdline", -- classic bar at the bottom (not floating popup)
-      },
-    },
+      })
+
+      -- No popup for LazyVim's own warnings; still listed in `:Noice`
+      opts.routes = opts.routes or {}
+      table.insert(opts.routes, {
+        filter = {
+          event = "notify",
+          cond = function(message)
+            return type(message.opts) == "table" and message.opts.title == "LazyVim"
+          end,
+        },
+        opts = { skip = true },
+      })
+      return opts
+    end,
   },
 
   {
@@ -99,7 +134,7 @@ return {
     keys = {
       { "<leader><space>", false },
     },
-    opts = function()
+    opts = function(_, opts)
       local no_preview = { layout = { preview = false } }
       local picker_sources = {}
       for _, name in ipairs({
@@ -114,11 +149,29 @@ return {
       }) do
         picker_sources[name] = no_preview
       end
-      return {
+      return vim.tbl_deep_extend("force", opts or {}, {
         picker = {
           sources = picker_sources,
         },
-      }
+        terminal = {
+          win = {
+            keys = {
+              resize_up = {
+                "<C-Up>",
+                term_resize(1),
+                desc = "Increase Terminal Height",
+                mode = { "n", "t" },
+              },
+              resize_down = {
+                "<C-Down>",
+                term_resize(-1),
+                desc = "Decrease Terminal Height",
+                mode = { "n", "t" },
+              },
+            },
+          },
+        },
+      })
     end,
   },
 }

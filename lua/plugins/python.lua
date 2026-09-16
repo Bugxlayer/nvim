@@ -20,6 +20,36 @@ local function local_venv_python(root)
   return nil
 end
 
+local function local_venv_activate(root)
+  if not root or root == "" then
+    return nil
+  end
+  root = vim.fs.normalize(root)
+  local candidates = vim.fn.has("win32") == 1
+      and {
+        root .. "/.venv/Scripts/activate",
+        root .. "/venv/Scripts/activate",
+      }
+    or {
+      root .. "/.venv/bin/activate",
+      root .. "/venv/bin/activate",
+    }
+  for _, script in ipairs(candidates) do
+    if vim.fn.filereadable(script) == 1 then
+      return script
+    end
+  end
+  return nil
+end
+
+local function terminal_project_root(buf)
+  local meta = vim.b[buf] and vim.b[buf].snacks_terminal
+  if meta and meta.cwd and meta.cwd ~= "" then
+    return vim.fs.normalize(meta.cwd)
+  end
+  return LazyVim.root({ buf = buf, normalize = true })
+end
+
 ---@type table<string, boolean>
 local auto_tried_roots = {}
 
@@ -48,7 +78,7 @@ return {
   },
 
   {
-    "williamboman/mason.nvim",
+    "mason-org/mason.nvim",
     opts = {
       ensure_installed = {
         "pyright",
@@ -64,10 +94,39 @@ return {
         notify_user_on_venv_activation = false,
         cached_venv_automatic_activation = true,
         enable_cached_venvs = true,
+        activate_venv_in_terminal = true,
+        set_environment_variables = true,
       },
     },
     config = function(_, opts)
       require("venv-selector").setup(opts)
+
+      vim.api.nvim_create_autocmd("TermOpen", {
+        group = vim.api.nvim_create_augroup("lazyvim_terminal_venv", { clear = true }),
+        callback = function(args)
+          local buf = args.buf
+          vim.defer_fn(function()
+            if not vim.api.nvim_buf_is_valid(buf) then
+              return
+            end
+            local root = terminal_project_root(buf)
+            local activate = local_venv_activate(root)
+            if not activate then
+              return
+            end
+
+            local python = local_venv_python(root)
+            if python then
+              pcall(require("venv-selector").activate_from_path, python, "venv")
+            end
+
+            local channel = vim.bo[buf].channel
+            if channel and channel > 0 then
+              vim.fn.chansend(channel, "source " .. vim.fn.shellescape(activate) .. "\r")
+            end
+          end, 80)
+        end,
+      })
 
       vim.api.nvim_create_autocmd("FileType", {
         group = vim.api.nvim_create_augroup("lazyvim_auto_venv", { clear = true }),

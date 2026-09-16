@@ -33,7 +33,6 @@ WINDOWS & LAYOUT
   <leader>wd            Close current window
   <leader>wm / <leader>uZ   Toggle zoom (maximize split)
   <leader>uz            Toggle zen mode
-  Ctrl+w Space          Window keymap help (which-key hydra)
 
 --------------------------------------------------------------------------------
 BUFFERS (no tab bar — use these)
@@ -155,6 +154,9 @@ TERMINAL (Snacks)
   <leader>ft            Terminal (project root)
   <leader>fT            Terminal (cwd)
   Ctrl+/  (also Ctrl+_) Toggle/focus terminal (normal & terminal mode)
+  Ctrl+Shift+/, Alt+/   New terminal (normal & terminal mode)
+  <leader>fn            New terminal (same, leader version)
+  Ctrl+Up / Ctrl+Down   Grow / shrink terminal (normal & terminal mode)
 
 --------------------------------------------------------------------------------
 GIT
@@ -215,10 +217,11 @@ COMPLETION (blink.cmp — typical defaults)
 NOTES
 --------------------------------------------------------------------------------
   • Bufferline (top file tabs) is disabled in your config.
+  • which-key is disabled: no key hint popup after <Space> or Ctrl+w.
   • File picker preview is disabled for <leader>ff.
   • Status line: dark bar; clock removed; click path to copy.
   • Transparent editor background: enable terminal opacity in your terminal app.
-  • Full interactive help: <Space>sk (search keymaps) or :WhichKey
+  • Full interactive help: <Space>sk (search keymaps)
 
 ================================================================================
   Generated for ~/.config/nvim — update this file if you change keymaps.

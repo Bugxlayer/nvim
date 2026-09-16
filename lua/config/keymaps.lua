@@ -19,6 +19,20 @@ end, { desc = "Explorer Netrw (cwd)" })
 vim.keymap.set("n", "<leader>fe", "<leader>e", { desc = "Explorer Netrw (root dir)", remap = true })
 vim.keymap.set("n", "<leader>fE", "<leader>E", { desc = "Explorer Netrw (cwd)", remap = true })
 
+-- <C-/> toggles terminal 1; this opens an additional terminal each time
+local term_count = 1
+local function new_terminal()
+  term_count = term_count + 1
+  Snacks.terminal.open(nil, { cwd = LazyVim.root(), count = term_count })
+end
+
+-- Ctrl+Shift+/ only arrives when the terminal emits CSI-u (see Windows Terminal
+-- settings.json: sendInput "\u001b[47;6u"); Alt+/ works everywhere
+for _, lhs in ipairs({ "<C-S-/>", "<M-/>" }) do
+  vim.keymap.set({ "n", "t" }, lhs, new_terminal, { desc = "New Terminal (Root Dir)" })
+end
+vim.keymap.set("n", "<leader>fn", new_terminal, { desc = "New Terminal (Root Dir)" })
+
 vim.keymap.set("n", "<leader>yp", function()
   local path = vim.fn.expand("%:p")
   if path == "" then
