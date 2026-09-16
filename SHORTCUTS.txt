@@ -1,0 +1,225 @@
+================================================================================
+  Leader key: Space          Local leader: \
+  Config: ~/.config/nvim       Theme: lunaperche
+  Press <Space>? in a buffer for buffer-local keys
+  Press <Space>sk to search all keymaps in Neovim
+================================================================================
+
+--------------------------------------------------------------------------------
+GENERAL / EDITING
+--------------------------------------------------------------------------------
+  ii                    Leave insert mode (custom; same as Esc)
+  Ctrl+s                Save file (normal, insert, visual, select)
+  Esc                   Clear search highlight + leave snippet (insert)
+  u                     Undo
+  Ctrl+r                Redo
+  << / >>               Indent line(s) in visual (stay selected)
+  Alt+j / Alt+k         Move line(s) down / up
+  gc                    Comment line / selection (toggle)
+  gco / gcO             Add comment below / above
+  <leader>ur            Redraw, clear search, refresh diff
+  <leader>cf            Format file or selection
+  <leader>qq            Quit all
+  <leader>l             Open Lazy plugin manager
+  <leader>L             LazyVim changelog
+
+--------------------------------------------------------------------------------
+WINDOWS & LAYOUT
+--------------------------------------------------------------------------------
+  Ctrl+h/j/k/l          Focus window left / down / up / right
+  Ctrl+Arrow            Resize window (height / width)
+  <leader>-             Split window horizontally (below)
+  <leader>|             Split window vertically (right)
+  <leader>wd            Close current window
+  <leader>wm / <leader>uZ   Toggle zoom (maximize split)
+  <leader>uz            Toggle zen mode
+  Ctrl+w Space          Window keymap help (which-key hydra)
+
+--------------------------------------------------------------------------------
+BUFFERS (no tab bar — use these)
+--------------------------------------------------------------------------------
+  Shift+h / Shift+l     Previous / next buffer
+  [b / ]b               Previous / next buffer
+  <leader>bb / <leader>`  Switch to alternate buffer
+  <leader>bd            Delete buffer (keep window)
+  <leader>bo            Delete all other buffers
+  <leader>bi            Delete invisible buffers
+  <leader>bD            Delete buffer and close window
+  <leader>?             Show buffer-local keymaps
+
+--------------------------------------------------------------------------------
+FILE EXPLORER (netrw — your setup)
+--------------------------------------------------------------------------------
+  <leader>e / <leader>fe   Explorer at project root
+  <leader>E / <leader>fE   Explorer at cwd
+  <leader>yp              Copy full path of current file
+  (status bar)            Full path shown; left-click path to copy
+
+  In netrw:
+  Enter                 Open file or directory
+  -                     Go up one directory
+  %                     Create new file
+  d                     Create directory
+  R                     Rename
+  x                     Run file with system handler
+  I                     Toggle help banner (off by default in your config)
+
+--------------------------------------------------------------------------------
+FIND / SEARCH (Snacks picker)
+--------------------------------------------------------------------------------
+  <leader>ff            Find files (project root)
+  <leader>fF            Find files (cwd)
+  <leader>fg            Git tracked files
+  <leader>fr            Recent files
+  <leader>fR            Recent files (cwd only)
+  <leader>fp            Projects
+  <leader>fb            Buffers
+  <leader>fB            All buffers (incl. hidden)
+  <leader>fc            Find config files
+  <leader>fn            New empty file
+  <leader>/             Live grep (project root)
+  <leader>sg            Live grep (project root)
+  <leader>sG            Live grep (cwd)
+  <leader>sw / <leader>sW   Grep word under cursor (root / cwd)
+  <leader>:             Command history
+  <leader>sk            Keymaps
+  <leader>sh            Help tags
+  <leader>sd            Workspace diagnostics (picker)
+  <leader>sR            Resume last picker
+
+--------------------------------------------------------------------------------
+LSP (when attached — Python: Pyright)
+--------------------------------------------------------------------------------
+  K                     Hover documentation
+  gK / Ctrl+k (insert)  Signature help
+  gd                    Go to definition
+  gD                    Go to declaration
+  gr                    References
+  gI                    Go to implementation
+  gy                    Go to type definition
+  ]] / [[               Next / prev reference (highlight)
+  Alt+n / Alt+p         Next / prev reference (keep position)
+  <leader>ca            Code action (normal / visual)
+  <leader>cr            Rename symbol
+  <leader>cR            Rename file (LSP workspace)
+  <leader>co            Organize imports (when available)
+  <leader>cc / <leader>cC   Run / refresh codelens
+  <leader>cl            LSP info (picker)
+  <leader>cm            Mason (install LSP tools)
+
+--------------------------------------------------------------------------------
+DIAGNOSTICS
+--------------------------------------------------------------------------------
+  <leader>cd            Diagnostic float (line)
+  ]d / [d               Next / previous diagnostic
+  ]e / [e               Next / previous error
+  ]w / [w               Next / previous warning
+  <leader>xx            Trouble: all diagnostics
+  <leader>xX            Trouble: buffer diagnostics
+  <leader>cs            Trouble: symbols outline
+  <leader>cS            Trouble: LSP refs / defs / etc.
+  <leader>xL / <leader>xQ   Trouble: loclist / qflist
+  <leader>xl / <leader>xq   Toggle location list / quickfix
+  ]q / [q               Next / previous quickfix item
+
+--------------------------------------------------------------------------------
+PYTHON (extra)
+--------------------------------------------------------------------------------
+  <leader>cv            Pick virtualenv (venv-selector)
+                        (.venv / venv auto-selected when present)
+  <leader>dPt           Debug test method (python buffer)
+  <leader>dPc           Debug test class (python buffer)
+
+--------------------------------------------------------------------------------
+DEBUG (DAP)
+--------------------------------------------------------------------------------
+  <leader>db            Toggle breakpoint
+  <leader>dB            Conditional breakpoint
+  <leader>dc            Start / continue
+  <leader>da            Run with args
+  <leader>dO            Step over
+  <leader>di            Step into
+  <leader>do            Step out
+  <leader>dC            Run to cursor
+  <leader>dg            Go to line (no execute)
+  <leader>dl            Run last
+  <leader>dt            Terminate session
+  <leader>dr            Toggle REPL
+  <leader>du            Toggle DAP UI
+  <leader>de            Eval (normal / visual)
+  <leader>dw            DAP widgets hover
+
+--------------------------------------------------------------------------------
+TERMINAL (Snacks)
+--------------------------------------------------------------------------------
+  <leader>ft            Terminal (project root)
+  <leader>fT            Terminal (cwd)
+  Ctrl+/  (also Ctrl+_) Toggle/focus terminal (normal & terminal mode)
+
+--------------------------------------------------------------------------------
+GIT
+--------------------------------------------------------------------------------
+  <leader>gg            Lazygit (project root)
+  <leader>gG            Lazygit (cwd)
+  <leader>gl            Git log (project)
+  <leader>gL            Git log (cwd)
+  <leader>gb            Git blame line
+  <leader>gf            Git log current file
+  <leader>gs            Git status (picker)
+  <leader>gd / <leader>gD   Git diff hunks / vs origin
+  <leader>gB            Git browse (open)
+  <leader>gY            Git browse URL (copy)
+  gx                    Open file under cursor with system app
+
+--------------------------------------------------------------------------------
+NAVIGATION / FLASH
+--------------------------------------------------------------------------------
+  s                     Flash jump (any visible label)
+  S                     Flash treesitter
+  R                     Treesitter search (operator / visual)
+  r                     Remote flash (operator)
+
+--------------------------------------------------------------------------------
+TABS (editor tabs, not bufferline)
+--------------------------------------------------------------------------------
+  <leader><tab><tab>    New tab
+  <leader><tab>] / [    Next / previous tab
+  <leader><tab>d        Close tab
+  <leader><tab>o        Close other tabs
+  <leader><tab>f / l    First / last tab
+
+--------------------------------------------------------------------------------
+UI TOGGLES (<leader>u…)
+--------------------------------------------------------------------------------
+  <leader>uf / uF       Toggle format on save (off / on)
+  <leader>ud            Toggle diagnostics virtual text
+  <leader>ul            Toggle line numbers
+  <leader>uL            Toggle relative line numbers
+  <leader>uw            Toggle wrap
+  <leader>us            Toggle spell
+  <leader>uh            Toggle inlay hints (if supported)
+  <leader>uT            Toggle treesitter highlight
+  <leader>uC            Colorscheme picker
+  <leader>ui / uI       Inspect cursor / treesitter tree
+
+--------------------------------------------------------------------------------
+COMPLETION (blink.cmp — typical defaults)
+--------------------------------------------------------------------------------
+  Ctrl+Space            Open or trigger completion (insert)
+  Tab / Shift+Tab       Next / previous item (insert)
+  Enter                 Confirm completion
+  Ctrl+e                Close completion menu
+  Ctrl+n / Ctrl+p       Next / previous item (fallback)
+
+--------------------------------------------------------------------------------
+NOTES
+--------------------------------------------------------------------------------
+  • Bufferline (top file tabs) is disabled in your config.
+  • File picker preview is disabled for <leader>ff.
+  • Status line: dark bar; clock removed; click path to copy.
+  • Transparent editor background: enable terminal opacity in your terminal app.
+  • Full interactive help: <Space>sk (search keymaps) or :WhichKey
+
+================================================================================
+  Generated for ~/.config/nvim — update this file if you change keymaps.
+================================================================================
