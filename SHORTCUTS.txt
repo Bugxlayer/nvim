@@ -218,7 +218,7 @@ NOTES
 --------------------------------------------------------------------------------
   • Bufferline (top file tabs) is disabled in your config.
   • which-key is disabled: no key hint popup after <Space> or Ctrl+w.
-  • File picker preview is disabled for <leader>ff.
+  • File picker preview is disabled for <leader>ff; picker window ~58%×62% (telescope layout).
   • Status line: dark bar; clock removed; click path to copy.
   • Transparent editor background: enable terminal opacity in your terminal app.
   • Full interactive help: <Space>sk (search keymaps)

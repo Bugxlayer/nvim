@@ -149,9 +149,22 @@ return {
       }) do
         picker_sources[name] = no_preview
       end
+      local compact = { width = 0.58, height = 0.62, min_width = 64 }
       return vim.tbl_deep_extend("force", opts or {}, {
         picker = {
           sources = picker_sources,
+          -- Snacks picker (LazyVim default; telescope-like layout)
+          layout = {
+            preset = function()
+              return vim.o.columns >= 110 and "telescope" or "vertical"
+            end,
+          },
+          layouts = {
+            default = { layout = compact },
+            telescope = { layout = compact },
+            vertical = { layout = { width = 0.48, height = 0.58, min_width = 64, min_height = 22 } },
+            dropdown = { layout = { width = 0.42, height = 0.55, min_width = 64 } },
+          },
         },
         terminal = {
           win = {
