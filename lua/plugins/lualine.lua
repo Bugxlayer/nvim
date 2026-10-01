@@ -33,6 +33,11 @@ return {
 						{
 							"branch",
 							icon = "",
+							color = function()
+								local focus = package.loaded["focus"]
+								local p = focus and focus.palette or require("focus.palette")
+								return { fg = p.type }
+							end,
 						},
 					},
 
@@ -47,6 +52,10 @@ return {
 						{
 							"filetype",
 							icon_only = true,
+							color = function()
+								local p = require("focus.palette")
+								return { fg = p.func }
+							end,
 						},
 					},
 
@@ -58,6 +67,10 @@ return {
 							end,
 							cond = function()
 								return python_env.get_venv() ~= nil
+							end,
+							color = function()
+								local p = require("focus.palette")
+								return { fg = p.property }
 							end,
 						},
 					},

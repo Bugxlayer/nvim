@@ -17,15 +17,11 @@
 ---@field bg string
 ---@field cursorln string
 ---@field visual string
----@field lualine_fg string
----@field lualine_a_bg string
----@field lualine_b_bg string
----@field lualine_c_bg string
----@field lualine_inactive_fg string
----@field lualine_command_a_bg string
----@field lualine_command_b_bg string
----@field lualine_command_c_bg string
-
+---@field mode_normal string
+---@field mode_insert string
+---@field mode_visual string
+---@field mode_replace string
+---@field mode_command string
 ---@type focus.Palette
 return {
     fg = "#d4d4d4",
@@ -46,12 +42,9 @@ return {
     bg = "#1e1e1e",
     cursorln = "#252525",
     visual = "#2a2a2a",
-    lualine_fg = "#ffffff",
-    lualine_a_bg = "#2a2a2a",
-    lualine_b_bg = "#333333",
-    lualine_c_bg = "#3d3d3d",
-    lualine_inactive_fg = "#888888",
-    lualine_command_a_bg = "#7a7a7a",
-    lualine_command_b_bg = "#8a8a8a",
-    lualine_command_c_bg = "#9a9a9a",
+    mode_normal = "#61afef",
+    mode_insert = "#e06b9e",
+    mode_visual = "#c678dd",
+    mode_replace = "#e06c75",
+    mode_command = "#e5c07b",
 }

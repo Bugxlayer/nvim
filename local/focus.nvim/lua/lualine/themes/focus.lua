@@ -6,8 +6,6 @@ local function palette()
     return require("focus.palette")
 end
 
--- Powerline separators need distinct section backgrounds to render; use light
--- gray steps + white text so it reads as a white outline (no syntax colors).
 local function theme()
     local c = palette()
 
@@ -15,35 +13,34 @@ local function theme()
         return vim.tbl_extend("force", { fg = fg, bg = bg }, extra or {})
     end
 
-    local text = c.lualine_fg
-    local inactive = c.lualine_inactive_fg
+    local function mode_pill(accent)
+        return bar(c.bg, accent, { gui = "bold" })
+    end
+
+    -- Section b/c: editor surface tones (powerline needs distinct bgs)
+    local section_b = c.cursorln
+    local section_c = c.visual
 
     local body = {
-        a = bar(text, c.lualine_a_bg, { gui = "bold" }),
-        b = bar(text, c.lualine_b_bg),
-        c = bar(text, c.lualine_c_bg),
+        a = mode_pill(c.mode_normal),
+        b = bar(c.variable, section_b),
+        c = bar(c.fg, section_c),
     }
 
-    local inactive_body = {
-        a = bar(inactive, c.lualine_a_bg, { gui = "bold" }),
-        b = bar(inactive, c.lualine_b_bg),
-        c = bar(inactive, c.lualine_c_bg),
-    }
-
-    local command_body = {
-        a = bar(text, c.lualine_command_a_bg, { gui = "bold" }),
-        b = bar(text, c.lualine_command_b_bg),
-        c = bar(text, c.lualine_command_c_bg),
+    local inactive = {
+        a = bar(c.muted, section_b, { gui = "bold" }),
+        b = bar(c.muted, section_b),
+        c = bar(c.muted, section_c),
     }
 
     return {
         normal = body,
-        insert = { a = body.a },
-        visual = { a = body.a },
-        replace = { a = body.a },
-        command = command_body,
-        terminal = { a = body.a },
-        inactive = inactive_body,
+        insert = { a = mode_pill(c.mode_insert) },
+        visual = { a = mode_pill(c.mode_visual) },
+        replace = { a = mode_pill(c.mode_replace) },
+        command = { a = mode_pill(c.mode_command) },
+        terminal = { a = mode_pill(c.property) },
+        inactive = inactive,
     }
 end
 
