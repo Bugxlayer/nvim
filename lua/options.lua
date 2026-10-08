@@ -44,3 +44,11 @@ vim.diagnostic.config({
 	update_in_insert = false,
 	severity_sort = true,
 })
+
+vim.api.nvim_create_autocmd("TextYankPost", {
+	group = vim.api.nvim_create_augroup("highlight-yank", { clear = true }),
+	desc = "Briefly highlight yanked text",
+	callback = function()
+		vim.hl.on_yank({ higroup = "IncSearch", timeout = 200 })
+	end,
+})

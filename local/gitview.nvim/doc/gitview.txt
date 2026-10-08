@@ -1,0 +1,32 @@
+*gitview.txt*  Minimal Neovim Git UI
+
+==============================================================================
+CONTENTS                                                    *gitview*
+
+  Commands .................... |gitview-commands|
+  Keymaps ..................... |gitview-keymaps|
+  Setup ....................... |gitview-setup|
+
+==============================================================================
+COMMANDS                                                 *gitview-commands*
+
+:GitView          Open the 3-pane Git view
+:GitViewClose     Close GitView and restore windows
+:GitViewToggle    Toggle GitView
+
+==============================================================================
+KEYMAPS                                                   *gitview-keymaps*
+
+File pane: |j| |k| move and select, |r| refresh, |s| stage, |u| unstage.
+See |README.md| for the full list.
+
+==============================================================================
+SETUP                                                       *gitview-setup*
+
+>lua
+    require("gitview").setup({
+      layout = { columns = { 20, 40, 40 } },
+    })
+<
+
+vim:tw=78:ts=8:ft=help:norl:
