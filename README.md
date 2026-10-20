@@ -93,7 +93,7 @@ Normal-mode `d` / `c` (and visual `d` / `c` / `p`) use the black hole register s
 | `Leader fg` | Live grep in project |
 | `Leader fb` | Buffers |
 
-### Git — GitView (local)
+### Git — GitView
 
 | Key | Action |
 |-----|--------|
