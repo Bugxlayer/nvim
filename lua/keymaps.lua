@@ -55,6 +55,9 @@ vim.keymap.set("n", "<leader>e", vim.cmd.Ex, {
 	desc = "File explorer",
 })
 
+map("n", "<leader>h", "<cmd>bprevious<cr>", { desc = "Previous buffer" })
+map("n", "<leader>l", "<cmd>bnext<cr>", { desc = "Next buffer" })
+
 map("n", "<leader>cc", function()
 	local path = require("util.relative_path").get()
 	if path == "" or path == "[No Name]" then

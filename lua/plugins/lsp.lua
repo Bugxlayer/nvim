@@ -4,19 +4,26 @@ return {
     config = function()
         local python_env = require("python_env")
 
+        local pyright_root_markers = {
+            ".git",
+            "pyproject.toml",
+            "setup.py",
+            "setup.cfg",
+            "requirements.txt",
+        }
+
         vim.lsp.config("pyright", {
-            root_dir = function(bufnr)
+            root_markers = pyright_root_markers,
+            -- Neovim 0.12+ async root_dir: must call on_dir(), not return a path.
+            root_dir = function(bufnr, on_dir)
                 local fname = vim.api.nvim_buf_get_name(bufnr)
                 if fname == "" then
-                    return nil
+                    return
                 end
-                return vim.fs.root(fname, {
-                    ".git",
-                    "pyproject.toml",
-                    "setup.py",
-                    "setup.cfg",
-                    "requirements.txt",
-                })
+                local root = vim.fs.root(fname, pyright_root_markers)
+                if root then
+                    on_dir(root)
+                end
             end,
             settings = {
                 python = {
